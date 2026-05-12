@@ -8,6 +8,8 @@ services:
     envVars:
       - key: SECRET_KEY
         generateValue: true
+      - key: DEBUG
+        value: "True"
       - key: WEB_CONCURRENCY
         value: 4
       - key: ALLOWED_HOSTS

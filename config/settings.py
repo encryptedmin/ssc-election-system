@@ -32,8 +32,9 @@ SECRET_KEY = os.environ.get(
     'django-insecure-kbhk)*qwxer!_n9^jq^dh6(9*bjstba*g2v91q2xg!iroear=8',
 )
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env_bool('DEBUG', default='RENDER' not in os.environ)
+# TEMPORARY for the Render proof-of-concept demo.
+# Set DEBUG=False before using this outside the controlled demo.
+DEBUG = env_bool('DEBUG', default=True)
 
 ALLOWED_HOSTS = [
     host.strip()
