@@ -1,0 +1,66 @@
+{% extends 'layouts/voter_base.html' %}
+
+{% block title %}
+Available Elections
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-10">
+
+    <h2 class="text-4xl font-black">
+        Active Elections
+    </h2>
+
+    <p class="text-slate-400 mt-3">
+        Participate in ongoing student elections.
+    </p>
+
+</div>
+
+<div class="grid gap-6">
+
+    {% for election in elections %}
+
+    <a
+        href="{% url 'voting:election_ballot' election.id %}"
+        class="block bg-slate-900 border border-slate-800 rounded-3xl p-8 hover:border-blue-500 transition"
+    >
+
+        <div class="flex items-center justify-between">
+
+            <div>
+
+                <h3 class="text-3xl font-bold">
+                    {{ election.title }}
+                </h3>
+
+                <p class="text-slate-400 mt-3">
+                    {{ election.description }}
+                </p>
+
+            </div>
+
+            <span class="bg-green-500/10 text-green-400 px-5 py-3 rounded-full text-sm font-medium">
+
+                Active
+
+            </span>
+
+        </div>
+
+    </a>
+
+    {% empty %}
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-12 text-center text-slate-400">
+
+        No active elections available.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

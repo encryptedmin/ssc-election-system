@@ -1,0 +1,127 @@
+{% extends 'layouts/voter_base.html' %}
+
+{% block title %}
+Vote
+{% endblock %}
+
+{% block page_title %}
+Active Election
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-10">
+
+    <h2 class="text-4xl font-black">
+        {{ election.title }}
+    </h2>
+
+    <p class="text-slate-400 mt-3">
+        Cast your votes carefully and responsibly.
+    </p>
+
+</div>
+
+<div class="space-y-8">
+
+    {% for item in ballot %}
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <div class="flex items-center justify-between mb-8">
+
+            <div>
+
+                <h3 class="text-3xl font-bold">
+                    {{ item.position.name }}
+                </h3>
+
+                <p class="text-slate-400 mt-2">
+                    Maximum Votes:
+                    {{ item.position.max_votes }}
+                </p>
+
+            </div>
+
+            {% if item.already_voted %}
+
+            <span class="bg-green-500/10 text-green-400 px-4 py-2 rounded-full text-sm font-medium">
+
+                Vote Submitted
+
+            </span>
+
+            {% endif %}
+
+        </div>
+
+        {% if not item.already_voted %}
+
+        <form
+            method="POST"
+            action="{% url 'cast_vote' item.position.id %}"
+        >
+
+            {% csrf_token %}
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                {% for candidate in item.candidates %}
+
+                <label class="block cursor-pointer">
+
+                    <input
+                        type="checkbox"
+                        name="candidates"
+                        value="{{ candidate.id }}"
+                        class="hidden peer"
+                    >
+
+                    <div class="bg-slate-800 border border-slate-700 rounded-3xl overflow-hidden peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-500 transition">
+
+                        <img
+                            src="{{ candidate.photo.url }}"
+                            class="w-full h-72 object-cover"
+                        >
+
+                        <div class="p-6">
+
+                            <h4 class="text-2xl font-bold">
+                                {{ candidate.fullname }}
+                            </h4>
+
+                            <p class="text-slate-400 mt-4">
+                                {{ candidate.platform }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </label>
+
+                {% endfor %}
+
+            </div>
+
+            <button
+                type="submit"
+                onclick="return confirm('Submit your vote? This action cannot be undone.')"
+                class="mt-8 bg-blue-600 hover:bg-blue-700 transition px-6 py-4 rounded-2xl font-medium"
+            >
+
+                Submit Vote
+
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

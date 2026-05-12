@@ -1,0 +1,101 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Delete Election
+{% endblock %}
+
+{% block page_title %}
+Delete Election
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-3xl">
+
+    <div class="mb-8">
+
+        <h2 class="text-3xl font-bold text-red-300">
+            Delete {{ election.title }}
+        </h2>
+
+        <p class="text-slate-400 mt-2">
+            This concluded election and its positions, candidates, and votes will be permanently removed.
+        </p>
+
+    </div>
+
+    <div class="bg-red-500/10 border border-red-500/30 rounded-2xl p-6 mb-6">
+        <p class="font-semibold text-red-200">
+            This action cannot be undone.
+        </p>
+        <p class="text-sm text-red-100/80 mt-2">
+            To continue, type the election title exactly as shown.
+        </p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            <div>
+                <label class="block mb-2 text-sm text-slate-300">
+                    Election Title
+                </label>
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 font-semibold">
+                    {{ election.title }}
+                </div>
+            </div>
+
+            <div>
+                <label for="confirmation" class="block mb-2 text-sm text-slate-300">
+                    Type Election Title
+                </label>
+                <input
+                    id="confirmation"
+                    name="confirmation"
+                    type="text"
+                    autocomplete="off"
+                    class="w-full bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3 focus:outline-none focus:border-red-500"
+                    required
+                >
+            </div>
+
+            <label class="flex items-start gap-3 text-sm text-slate-300">
+                <input
+                    name="acknowledged"
+                    type="checkbox"
+                    class="mt-1"
+                    required
+                >
+                <span>
+                    I understand this permanently deletes the election, all candidates, and all votes for this election.
+                </span>
+            </label>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+
+                <button
+                    type="submit"
+                    class="bg-red-600 hover:bg-red-700 transition px-6 py-3 rounded-2xl font-medium"
+                >
+                    Permanently Delete Election
+                </button>
+
+                <a
+                    href="{% url 'elections:election_detail' election.id %}"
+                    class="bg-slate-800 hover:bg-slate-700 transition px-6 py-3 rounded-2xl font-medium text-center"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

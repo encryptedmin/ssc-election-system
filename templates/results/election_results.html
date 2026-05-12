@@ -1,0 +1,57 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}
+Election Results
+{% endblock %}
+
+{% block page_title %}
+Election Results
+{% endblock %}
+
+{% block content %}
+
+{{ results|json_script:"election-results-data" }}
+
+<div
+    id="election-results-app"
+    data-results-url="{% url 'results:election_results_data' election.id %}"
+    data-election-active="{{ election.is_open|yesno:'true,false' }}"
+>
+
+    <div class="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+
+        <div>
+
+            <h2 class="text-3xl font-bold">
+                {{ election.title }}
+            </h2>
+
+            <p class="text-slate-400 mt-2">
+                {{ election.description }}
+            </p>
+
+        </div>
+
+        <div class="text-sm text-slate-400">
+            Updated
+            <span data-generated-at class="text-slate-200 font-medium">
+                {{ results.generated_at }}
+            </span>
+        </div>
+
+    </div>
+
+    {% include 'results/components/summary_cards.html' %}
+    {% include 'results/components/overview_charts.html' %}
+    {% include 'results/components/department_participation.html' %}
+    {% include 'results/components/live_vote_counts.html' %}
+    {% include 'results/components/position_charts.html' %}
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/election_results.js' %}"></script>
+{% endblock %}

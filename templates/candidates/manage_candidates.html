@@ -1,0 +1,95 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Candidates
+{% endblock %}
+
+{% block page_title %}
+Candidates
+{% endblock %}
+
+{% block content %}
+
+<div class="flex items-center justify-between mb-8">
+
+    <div>
+
+        <h2 class="text-3xl font-bold">
+            {{ position.name }}
+        </h2>
+
+        <p class="text-slate-400 mt-2">
+            Candidate Management
+        </p>
+
+    </div>
+
+    {% if not position.election.is_concluded %}
+
+    <a
+        href="{% url 'add_candidate' position.id %}"
+        class="bg-blue-600 hover:bg-blue-700 transition px-5 py-3 rounded-2xl font-medium"
+    >
+        Add Candidate
+    </a>
+
+    {% endif %}
+
+</div>
+
+<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+    {% for candidate in candidates %}
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
+
+        <img
+            src="{{ candidate.photo.url }}"
+            class="w-full h-72 object-cover"
+        >
+
+        <div class="p-6">
+
+            <h3 class="text-2xl font-bold">
+                {{ candidate.fullname }}
+            </h3>
+
+            <p class="text-slate-400 mt-4">
+                {{ candidate.platform }}
+            </p>
+
+            {% if not position.election.is_concluded %}
+
+            <div class="mt-6 flex gap-3">
+
+                <a
+                    href="{% url 'delete_candidate' candidate.id %}"
+                    onclick="return confirm('Delete this candidate permanently?')"
+                    class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm"
+                >
+
+                    Delete
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-10 text-center text-slate-400 col-span-full">
+
+        No candidates yet.
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        SSC Election System
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-slate-950 text-white font-sans">
+
+<section class="min-h-screen flex items-center justify-center px-6">
+
+    <div class="max-w-6xl w-full grid lg:grid-cols-2 gap-16 items-center">
+
+        <div>
+
+            <p class="text-blue-400 font-semibold tracking-wide uppercase mb-4">
+                Student Supreme Council
+            </p>
+
+            <h1 class="text-5xl lg:text-7xl font-black leading-tight tracking-tight">
+
+                Secure Digital Election Platform
+
+            </h1>
+
+            <p class="mt-8 text-slate-400 text-lg leading-relaxed max-w-xl">
+
+                Modern, transparent, and efficient campus elections
+                designed for real student governance.
+
+            </p>
+
+            <div class="flex flex-wrap gap-4 mt-10">
+
+                <a
+                    href="{% url 'login' %}"
+                    class="bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-semibold"
+                >
+
+                    Login
+
+                </a>
+
+                <a
+                    href="{% url 'register' %}"
+                    class="border border-slate-700 hover:border-slate-500 transition px-8 py-4 rounded-2xl font-semibold"
+                >
+
+                    Register
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="flex justify-center">
+
+            <img
+                src="{% static 'images/logo.png' %}"
+                class="w-full max-w-md object-contain"
+                alt="SSC Logo"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>

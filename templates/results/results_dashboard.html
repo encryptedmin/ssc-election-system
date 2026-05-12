@@ -1,0 +1,104 @@
+{% extends base_template %}
+
+{% block title %}
+Election Results
+{% endblock %}
+
+{% block page_title %}
+Election Results
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-8">
+
+    <h2 class="text-3xl font-bold">
+        Election Results
+    </h2>
+
+    <p class="text-slate-400 mt-2">
+        View published election outcomes and live vote totals.
+    </p>
+
+</div>
+
+<div class="grid gap-6">
+
+    {% for election in elections %}
+
+    <a
+        href="{% url 'results:election_results' election.id %}"
+        class="block bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500 transition"
+    >
+
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+
+            <div>
+
+                <h3 class="text-2xl font-bold">
+                    {{ election.title }}
+                </h3>
+
+                <p class="text-slate-400 mt-2">
+                    {{ election.description }}
+                </p>
+
+                <div class="flex flex-wrap gap-3 mt-4 text-sm text-slate-400">
+
+                    <span>
+                        {{ election.position_count }} positions
+                    </span>
+
+                    <span>
+                        {{ election.candidate_count }} candidates
+                    </span>
+
+                    <span>
+                        {{ election.vote_count }} votes cast
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% if election.is_concluded %}
+
+            <span class="w-fit bg-red-500/10 text-red-300 px-4 py-2 rounded-full text-sm font-medium">
+                Concluded
+            </span>
+
+            {% elif election.is_open %}
+
+            <span class="w-fit bg-green-500/10 text-green-400 px-4 py-2 rounded-full text-sm font-medium">
+                Active
+            </span>
+
+            {% elif election.is_active %}
+
+            <span class="w-fit bg-blue-500/10 text-blue-300 px-4 py-2 rounded-full text-sm font-medium">
+                Scheduled
+            </span>
+
+            {% else %}
+
+            <span class="w-fit bg-slate-700 text-slate-300 px-4 py-2 rounded-full text-sm font-medium">
+                Inactive
+            </span>
+
+            {% endif %}
+
+        </div>
+
+    </a>
+
+    {% empty %}
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-400">
+        No election results available.
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'layouts/voter_base.html' %}
+
+{% block title %}
+Voter Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="grid lg:grid-cols-3 gap-6 mb-10">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <p class="text-slate-400 text-sm uppercase tracking-wide">
+            Student ID
+        </p>
+
+        <h3 class="text-3xl font-bold mt-4">
+            {{ request.user.student_id }}
+        </h3>
+
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <p class="text-slate-400 text-sm uppercase tracking-wide">
+            Department
+        </p>
+
+        <h3 class="text-3xl font-bold mt-4">
+            {{ request.user.department }}
+        </h3>
+
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <p class="text-slate-400 text-sm uppercase tracking-wide">
+            Status
+        </p>
+
+        <h3 class="text-3xl font-bold mt-4 text-green-400">
+            Verified
+        </h3>
+
+    </div>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-6">
+
+    <a
+        href="{% url 'voting:election_list' %}"
+        class="bg-blue-600 hover:bg-blue-700 transition rounded-3xl p-10"
+    >
+
+        <h3 class="text-3xl font-bold">
+            Vote Now
+        </h3>
+
+        <p class="mt-4 text-blue-100">
+            Open active election ballots.
+        </p>
+
+    </a>
+
+    <a
+        href="{% url 'results:results_dashboard' %}"
+        class="bg-slate-900 border border-slate-800 hover:border-blue-500 transition rounded-3xl p-10"
+    >
+
+        <h3 class="text-3xl font-bold">
+            Election Results
+        </h3>
+
+        <p class="mt-4 text-slate-400">
+            View public election standings.
+        </p>
+
+    </a>
+
+</div>
+
+{% endblock %}

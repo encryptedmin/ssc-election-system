@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Register
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-slate-950 text-white font-sans">
+
+<section class="min-h-screen flex items-center justify-center px-6">
+
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <div class="mb-8 text-center">
+
+            <h1 class="text-3xl font-bold">
+                Create Account
+            </h1>
+
+            <p class="text-slate-400 mt-2">
+                Register as voter
+            </p>
+
+        </div>
+{% if messages %}
+
+<div class="space-y-4 mb-6">
+
+    {% for message in messages %}
+
+    <div class="px-5 py-4 rounded-2xl border border-slate-700 bg-slate-950 text-sm">
+
+        {{ message }}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+        <form method="POST" class="space-y-5">
+
+    {% csrf_token %}
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Student ID
+        </label>
+
+        {{ form.student_id }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Username
+        </label>
+
+        {{ form.username }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Email
+        </label>
+
+        {{ form.email }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Department
+        </label>
+
+        {{ form.department }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Year Level
+        </label>
+
+        {{ form.year_level }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Password
+        </label>
+
+        {{ form.password1 }}
+
+    </div>
+
+    <div>
+
+        <label class="block mb-2 text-sm text-slate-300">
+            Confirm Password
+        </label>
+
+        {{ form.password2 }}
+
+    </div>
+
+    <button
+        type="submit"
+        class="w-full bg-blue-600 hover:bg-blue-700 transition rounded-2xl py-3 font-semibold"
+    >
+
+        Register
+
+    </button>
+
+</form>
+
+    </div>
+
+</section>
+
+</body>
+</html>

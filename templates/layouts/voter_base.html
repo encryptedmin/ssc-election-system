@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        {% block title %}
+        Voter Portal
+        {% endblock %}
+
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body class="bg-slate-950 text-white font-sans">
+
+<header class="border-b border-slate-800 bg-slate-900">
+
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+        <div>
+
+            <h1 class="text-2xl font-bold">
+                SSC Election System
+            </h1>
+
+            <p class="text-sm text-slate-400 mt-1">
+                Secure Voting Portal
+            </p>
+
+        </div>
+
+        <div class="flex items-center gap-4">
+
+            <div class="text-right">
+
+                <p class="font-medium">
+                    {{ request.user.username }}
+                </p>
+
+                <p class="text-sm text-slate-400">
+                    Verified Voter
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'logout' %}"
+                class="bg-red-500/10 hover:bg-red-500/20 transition text-red-400 px-5 py-3 rounded-2xl font-medium"
+            >
+
+                Logout
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="mb-8">
+
+    <a
+        href="{% url 'voter_dashboard' %}"
+        class="inline-flex bg-slate-900 border border-slate-800 hover:border-blue-500 transition px-5 py-3 rounded-2xl font-medium"
+    >
+        Back to Dashboard
+    </a>
+
+</div>
+
+    {% if messages %}
+
+    <div class="space-y-4 mb-6">
+
+        {% for message in messages %}
+
+        <div class="px-5 py-4 rounded-2xl border border-slate-700 bg-slate-900">
+
+            {{ message }}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+</html>

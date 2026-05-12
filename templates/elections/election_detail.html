@@ -1,0 +1,144 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Election Detail
+{% endblock %}
+
+{% block page_title %}
+Election Detail
+{% endblock %}
+
+{% block content %}
+
+<div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between mb-8">
+
+    <div>
+        <h2 class="text-3xl font-bold">
+            {{ election.title }}
+        </h2>
+        <p class="text-slate-400 mt-2">
+            {{ election.description }}
+        </p>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+        {% if election.is_concluded %}
+        <a
+            href="{% url 'elections:delete_election' election.id %}"
+            class="bg-red-600 hover:bg-red-700 transition px-5 py-3 rounded-2xl font-medium"
+        >
+            Delete Election
+        </a>
+        {% elif not election.is_active %}
+        <form
+            method="POST"
+            action="{% url 'elections:publish_election' election.id %}"
+        >
+            {% csrf_token %}
+            <button
+                type="submit"
+                onclick="return confirm('Publish this election? Voters can access it during its scheduled voting window.')"
+                class="bg-green-600 hover:bg-green-700 transition px-5 py-3 rounded-2xl font-medium"
+            >
+                Publish Election
+            </button>
+        </form>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="grid lg:grid-cols-3 gap-6 mb-8">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-slate-400 text-sm">Start Time</p>
+        <h3 class="text-xl font-bold mt-2">
+            {{ election.start_time }}
+        </h3>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-slate-400 text-sm">End Time</p>
+        <h3 class="text-xl font-bold mt-2">
+            {{ election.end_time }}
+        </h3>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-slate-400 text-sm">Status</p>
+        <h3 class="text-xl font-bold mt-2">
+            {% if election.is_concluded %}
+            <span class="text-red-300">Concluded</span>
+            {% elif election.is_open %}
+            <span class="text-green-400">Active</span>
+            {% elif election.is_active %}
+            <span class="text-blue-300">Scheduled</span>
+            {% else %}
+            <span class="text-yellow-400">Draft</span>
+            {% endif %}
+        </h3>
+    </div>
+
+</div>
+
+<div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+
+    <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+        <div>
+            <h3 class="text-xl font-bold">Positions</h3>
+            <p class="text-slate-400 text-sm mt-1">
+                Manage election positions
+            </p>
+        </div>
+
+        {% if not election.is_concluded %}
+        <a
+            href="{% url 'add_position' election.id %}"
+            class="bg-blue-600 hover:bg-blue-700 transition px-5 py-3 rounded-2xl font-medium"
+        >
+            Add Position
+        </a>
+        {% endif %}
+    </div>
+
+    <div class="divide-y divide-slate-800">
+        {% for position in positions %}
+        <div class="p-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+                <h4 class="text-lg font-semibold">
+                    {{ position.name }}
+                </h4>
+                <p class="text-sm text-slate-400 mt-1">
+                    Maximum Votes: {{ position.max_votes }}
+                </p>
+            </div>
+
+            <div class="flex gap-3">
+                <a
+                    href="{% url 'manage_candidates' position.id %}"
+                    class="bg-slate-800 hover:bg-slate-700 transition px-4 py-2 rounded-xl text-sm"
+                >
+                    Candidates
+                </a>
+
+                {% if not election.is_concluded %}
+                <a
+                    href="{% url 'delete_position' position.id %}"
+                    onclick="return confirm('Delete this position permanently?')"
+                    class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm"
+                >
+                    Delete
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="p-12 text-center text-slate-400">
+            No positions created yet.
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

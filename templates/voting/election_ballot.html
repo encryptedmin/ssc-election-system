@@ -1,0 +1,100 @@
+{% extends 'layouts/voter_base.html' %}
+
+{% block title %}
+Election Ballot
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-10">
+
+    <h2 class="text-4xl font-black">
+        {{ election.title }}
+    </h2>
+
+    <p class="text-slate-400 mt-3">
+        Complete your ballot carefully before final submission.
+    </p>
+
+</div>
+
+<form
+    method="POST"
+    action="{% url 'voting:submit_ballot' election.id %}"
+>
+
+    {% csrf_token %}
+
+    <div class="space-y-10">
+
+        {% for position in positions %}
+
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+            <div class="mb-8">
+
+                <h3 class="text-3xl font-bold">
+                    {{ position.name }}
+                </h3>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+                {% for candidate in position.candidate_set.all %}
+
+                <label class="block cursor-pointer">
+
+                    <input
+                        type="radio"
+                        name="position_{{ position.id }}"
+                        value="{{ candidate.id }}"
+                        class="hidden peer"
+                    >
+
+                    <div class="bg-slate-800 border border-slate-700 rounded-3xl overflow-hidden peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-500 transition">
+
+                        <img
+                            src="{{ candidate.photo.url }}"
+                            class="w-full h-72 object-cover"
+                        >
+
+                        <div class="p-6">
+
+                            <h4 class="text-2xl font-bold">
+                                {{ candidate.fullname }}
+                            </h4>
+
+                            <p class="text-slate-400 mt-4">
+                                {{ candidate.platform }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </label>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <button
+        type="submit"
+        onclick="return confirm('Submit your final ballot? This action cannot be undone.')"
+        class="mt-10 bg-blue-600 hover:bg-blue-700 transition px-8 py-4 rounded-2xl font-medium"
+    >
+
+        Submit Final Ballot
+
+    </button>
+
+</form>
+
+{% endblock %}

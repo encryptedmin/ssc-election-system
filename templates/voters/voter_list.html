@@ -1,0 +1,158 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Voter Management
+{% endblock %}
+
+{% block page_title %}
+Voter Management
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-8">
+
+    <h2 class="text-3xl font-bold">
+        Voter Registry
+    </h2>
+
+    <p class="text-slate-400 mt-2">
+        Manage verified student voters
+    </p>
+
+</div>
+
+<div class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
+
+    <div class="overflow-x-auto">
+
+        <table class="w-full">
+
+            <thead class="bg-slate-800/50">
+
+                <tr>
+
+                    <th class="text-left p-5 font-semibold">
+                        Student ID
+                    </th>
+
+                    <th class="text-left p-5 font-semibold">
+                        Username
+                    </th>
+
+                    <th class="text-left p-5 font-semibold">
+                        Department
+                    </th>
+
+                    <th class="text-left p-5 font-semibold">
+                        Year
+                    </th>
+
+                    <th class="text-left p-5 font-semibold">
+                        Status
+                    </th>
+
+                    <th class="text-left p-5 font-semibold">
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody class="divide-y divide-slate-800">
+
+                {% for voter in voters %}
+
+                <tr class="hover:bg-slate-800/30 transition">
+
+                    <td class="p-5">
+                        {{ voter.student_id }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ voter.username }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ voter.department }}
+                    </td>
+
+                    <td class="p-5">
+                        {{ voter.year_level }}
+                    </td>
+
+                    <td class="p-5">
+
+                        {% if voter.is_approved %}
+
+                        <span class="bg-green-500/10 text-green-400 px-3 py-1 rounded-full text-sm">
+
+                            Approved
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="bg-yellow-500/10 text-yellow-400 px-3 py-1 rounded-full text-sm">
+
+                            Pending
+
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td class="p-5">
+
+                        <div class="flex gap-3">
+
+                            <a
+                                href="{% url 'edit_voter' voter.id %}"
+                                class="bg-slate-800 hover:bg-slate-700 transition px-4 py-2 rounded-xl text-sm"
+                            >
+
+                                Edit
+
+                            </a>
+
+                            <a
+                                href="{% url 'delete_voter' voter.id %}"
+                                onclick="return confirm('Delete this voter permanently?')"
+                                class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm"
+                            >
+
+                                Delete
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6" class="p-10 text-center text-slate-400">
+
+                        No voters found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

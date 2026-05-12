@@ -1,0 +1,82 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Add Position
+{% endblock %}
+
+{% block page_title %}
+Add Position
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-3xl">
+
+    <div class="mb-8">
+
+        <h2 class="text-3xl font-bold">
+            Add Position
+        </h2>
+
+        <p class="text-slate-400 mt-2">
+            {{ election.title }}
+        </p>
+
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            <div>
+
+                <label class="block mb-2 text-sm text-slate-300">
+                    Position Name
+                </label>
+
+                {{ form.name }}
+
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm text-slate-300">
+                        Maximum Votes
+                    </label>
+
+                    {{ form.max_votes }}
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm text-slate-300">
+                        Display Order
+                    </label>
+
+                    {{ form.order }}
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-2xl font-medium"
+            >
+
+                Create Position
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

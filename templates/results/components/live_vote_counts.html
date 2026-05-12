@@ -1,0 +1,83 @@
+<section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-6">
+    <h3 class="text-xl font-bold">Live Vote Counts</h3>
+    <p class="text-sm text-slate-400 mt-1 mb-4">
+        Vote totals update automatically while this page is open.
+    </p>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+
+        {% for position in results.positions %}
+
+        <div>
+            <div class="flex items-center justify-between gap-4 mb-3">
+                <h4 class="font-bold">{{ position.name }}</h4>
+                <span class="text-sm text-slate-400">
+                    <span data-position-total="{{ position.id }}">{{ position.total_votes }}</span>
+                    votes
+                </span>
+            </div>
+
+            <div class="space-y-3">
+
+                {% for candidate in position.candidates %}
+
+                <div
+                    data-candidate-row="{{ candidate.id }}"
+                    class="rounded-2xl border p-4 {% if candidate.is_winner %}border-green-500 bg-green-500/10{% else %}border-slate-800 bg-slate-950{% endif %}"
+                >
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="min-w-0">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <p class="font-semibold truncate">
+                                    {{ candidate.name }}
+                                </p>
+                                <span
+                                    data-candidate-winner="{{ candidate.id }}"
+                                    class="text-xs text-green-300 border border-green-500/40 rounded px-2 py-1 {% if not candidate.is_winner %}hidden{% endif %}"
+                                >
+                                    {% if election.is_open %}Leading{% else %}Winner{% endif %}
+                                </span>
+                            </div>
+                            <p class="text-sm text-slate-400">
+                                <span data-candidate-percentage="{{ candidate.id }}">{{ candidate.percentage }}</span>%
+                                of position votes
+                            </p>
+                        </div>
+                        <div class="text-right">
+                            <p data-candidate-votes="{{ candidate.id }}" class="text-2xl font-bold">
+                                {{ candidate.votes }}
+                            </p>
+                            <p class="text-xs text-slate-400">votes</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-4">
+                        <div
+                            data-candidate-bar="{{ candidate.id }}"
+                            class="h-full {% if candidate.is_winner %}bg-green-500{% else %}bg-blue-500{% endif %}"
+                            style="width: {{ candidate.percentage }}%;"
+                        ></div>
+                    </div>
+                </div>
+
+                {% empty %}
+
+                <div class="text-slate-400">
+                    No candidates added for this position.
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="text-slate-400">
+            No positions have been added to this election.
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>

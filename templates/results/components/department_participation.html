@@ -1,0 +1,45 @@
+<section class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-6">
+    <h3 class="text-xl font-bold">Department Participation</h3>
+    <p class="text-sm text-slate-400 mt-1 mb-4">
+        Registered and voted counts by department
+    </p>
+
+    <div class="h-80 mb-6">
+        <canvas data-chart="department"></canvas>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+            <thead class="text-slate-400 border-b border-slate-800">
+                <tr>
+                    <th class="py-3 pr-4 font-medium">Department</th>
+                    <th class="py-3 pr-4 font-medium">Registered</th>
+                    <th class="py-3 pr-4 font-medium">Voted</th>
+                    <th class="py-3 font-medium">Turnout</th>
+                </tr>
+            </thead>
+            <tbody data-department-table class="divide-y divide-slate-800">
+                {% for department in results.department_participation %}
+                <tr data-department-row="{{ department.department }}">
+                    <td class="py-3 pr-4">{{ department.department }}</td>
+                    <td data-department-registered class="py-3 pr-4">
+                        {{ department.registered }}
+                    </td>
+                    <td data-department-voted class="py-3 pr-4">
+                        {{ department.voted }}
+                    </td>
+                    <td class="py-3">
+                        <span data-department-percentage>{{ department.percentage }}</span>%
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="py-6 text-slate-400">
+                        No voter departments are available yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>

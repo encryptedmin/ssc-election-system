@@ -1,0 +1,9 @@
+{% if request.user.role == 'VOTER' %}
+
+    {% include 'layouts/voter_base_wrapper.html' %}
+
+{% else %}
+
+    {% include 'layouts/admin_base_wrapper.html' %}
+
+{% endif %}

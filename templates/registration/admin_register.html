@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Admin Registration
+    </title>
+
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
+</head>
+
+<body class="bg-slate-950 text-white font-sans">
+
+<section class="min-h-screen flex items-center justify-center px-6">
+
+    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8">
+
+        <div class="mb-8 text-center">
+
+            <h1 class="text-3xl font-bold">
+                Admin Registration
+            </h1>
+
+            <p class="text-slate-400 mt-2">
+                Await approval from Super Admin
+            </p>
+
+        </div>
+
+        <form method="POST" class="space-y-5">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 transition rounded-2xl py-3 font-semibold"
+            >
+
+                Submit Request
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+</body>
+</html>

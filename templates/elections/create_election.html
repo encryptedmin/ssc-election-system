@@ -1,0 +1,92 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Create Election
+{% endblock %}
+
+{% block page_title %}
+Create Election
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-3xl">
+
+    <div class="mb-8">
+
+        <h2 class="text-3xl font-bold">
+            Create Election
+        </h2>
+
+        <p class="text-slate-400 mt-2">
+            Setup a new election cycle
+        </p>
+
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8">
+
+        <form method="POST" class="space-y-6">
+
+            {% csrf_token %}
+
+            <div>
+
+                <label class="block mb-2 text-sm text-slate-300">
+                    Election Title
+                </label>
+
+                {{ form.title }}
+
+            </div>
+
+            <div>
+
+                <label class="block mb-2 text-sm text-slate-300">
+                    Description
+                </label>
+
+                {{ form.description }}
+
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <label class="block mb-2 text-sm text-slate-300">
+                        Start Time
+                    </label>
+
+                    {{ form.start_time }}
+
+                </div>
+
+                <div>
+
+                    <label class="block mb-2 text-sm text-slate-300">
+                        End Time
+                    </label>
+
+                    {{ form.end_time }}
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 transition px-6 py-3 rounded-2xl font-medium"
+            >
+
+                Create Election
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

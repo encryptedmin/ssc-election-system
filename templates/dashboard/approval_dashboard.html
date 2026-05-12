@@ -1,0 +1,153 @@
+{% extends 'layouts/admin_base.html' %}
+
+{% block title %}
+Approvals
+{% endblock %}
+
+{% block page_title %}
+Approval Center
+{% endblock %}
+
+{% block content %}
+
+<div class="grid lg:grid-cols-2 gap-6">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+
+        <div class="p-6 border-b border-slate-800">
+
+            <h3 class="text-xl font-bold">
+                Pending Voters
+            </h3>
+
+        </div>
+
+        <div class="divide-y divide-slate-800">
+
+            {% for user in pending_voters %}
+
+            <div class="p-6 flex items-center justify-between">
+
+                <div>
+
+                    <h4 class="font-semibold">
+                        {{ user.username }}
+                    </h4>
+
+                    <p class="text-sm text-slate-400 mt-1">
+                        {{ user.student_id }}
+                    </p>
+
+                </div>
+
+                <div class="flex gap-3">
+
+                    <a
+                        href="{% url 'approve_user' user.id %}"
+                        onclick="return confirm('Approve this voter account?')"
+                        class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    >
+
+                        Approve
+
+                    </a>
+
+                    <a
+                        href="{% url 'reject_user' user.id %}"
+                        onclick="return confirm('Reject and permanently delete this voter account?')"
+                        class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    >
+
+                        Reject
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="p-6 text-slate-400">
+
+                No pending voters.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+
+        <div class="p-6 border-b border-slate-800">
+
+            <h3 class="text-xl font-bold">
+                Pending Admins
+            </h3>
+
+        </div>
+
+        <div class="divide-y divide-slate-800">
+
+            {% for user in pending_admins %}
+
+            <div class="p-6 flex items-center justify-between">
+
+                <div>
+
+                    <h4 class="font-semibold">
+                        {{ user.username }}
+                    </h4>
+
+                    <p class="text-sm text-slate-400 mt-1">
+                        {{ user.email }}
+                    </p>
+
+                </div>
+
+                <div class="flex gap-3">
+
+                    <a
+                        href="{% url 'approve_user' user.id %}"
+                        onclick="return confirm('Approve this admin account?')"
+                        class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    >
+
+                        Approve
+
+                    </a>
+
+                    <a
+                        href="{% url 'reject_user' user.id %}"
+                        onclick="return confirm('Reject and permanently delete this admin account?')"
+                        class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    >
+
+                        Reject
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="p-6 text-slate-400">
+
+                No pending admins.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mb-6">
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-sm text-slate-400">Registered Voters</p>
+        <p data-summary="registered_voters" class="text-4xl font-bold mt-3">
+            {{ results.summary.registered_voters }}
+        </p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-sm text-slate-400">Voters Turned Out</p>
+        <p data-summary="voted_voters" class="text-4xl font-bold mt-3">
+            {{ results.summary.voted_voters }}
+        </p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-sm text-slate-400">Total Votes Cast</p>
+        <p data-summary="total_votes" class="text-4xl font-bold mt-3">
+            {{ results.summary.total_votes }}
+        </p>
+    </div>
+
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <p class="text-sm text-slate-400">Turnout Rate</p>
+        <p class="text-4xl font-bold mt-3">
+            <span data-summary="turnout_percentage">
+                {{ results.summary.turnout_percentage }}
+            </span>%
+        </p>
+    </div>
+
+</div>

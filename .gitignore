@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Django generated files
+staticfiles/
+*.log
+runserver-*.out.log
+runserver-*.err.log
+
+# Local tooling binaries
+tailwindcss.exe
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Keep the demo SQLite database and uploaded media for the Render proof of concept.
+!db.sqlite3
+!media/
