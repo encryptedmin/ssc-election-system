@@ -28,16 +28,21 @@
             Dashboard
 
         </a>
-<a
-    href="{% url 'approval_dashboard' %}"
-    class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 text-slate-300 transition"
->
+        {% if request.user.role == 'SUPER_ADMIN' %}
 
-    <i data-lucide="shield-check"></i>
+        <a
+            href="{% url 'approval_dashboard' %}"
+            class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 text-slate-300 transition"
+        >
 
-    Approval Center
+            <i data-lucide="shield-check"></i>
 
-</a>
+            Approval Center
+
+        </a>
+
+        {% endif %}
+
         <a
             href="{% url 'elections:election_list' %}"
             class="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-slate-800 text-slate-300 transition"

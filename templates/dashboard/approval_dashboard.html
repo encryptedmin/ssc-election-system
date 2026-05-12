@@ -20,6 +20,10 @@ Approval Center
                 Pending Voters
             </h3>
 
+            <p class="text-sm text-slate-400 mt-1">
+                Voter accounts waiting for approval.
+            </p>
+
         </div>
 
         <div class="divide-y divide-slate-800">
@@ -42,25 +46,43 @@ Approval Center
 
                 <div class="flex gap-3">
 
-                    <a
-                        href="{% url 'approve_user' user.id %}"
-                        onclick="return confirm('Approve this voter account?')"
-                        class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    <form
+                        method="POST"
+                        action="{% url 'approve_user' user.id %}"
+                        onsubmit="return confirm('Approve this voter account?')"
                     >
 
-                        Approve
+                        {% csrf_token %}
 
-                    </a>
+                        <button
+                            type="submit"
+                            class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                        >
 
-                    <a
-                        href="{% url 'reject_user' user.id %}"
-                        onclick="return confirm('Reject and permanently delete this voter account?')"
-                        class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                            Approve
+
+                        </button>
+
+                    </form>
+
+                    <form
+                        method="POST"
+                        action="{% url 'reject_user' user.id %}"
+                        onsubmit="return confirm('Reject and permanently delete this voter account?')"
                     >
 
-                        Reject
+                        {% csrf_token %}
 
-                    </a>
+                        <button
+                            type="submit"
+                            class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                        >
+
+                            Reject
+
+                        </button>
+
+                    </form>
 
                 </div>
 
@@ -85,8 +107,12 @@ Approval Center
         <div class="p-6 border-b border-slate-800">
 
             <h3 class="text-xl font-bold">
-                Pending Admins
+                Pending Admin Requests
             </h3>
+
+            <p class="text-sm text-slate-400 mt-1">
+                Admin accounts waiting for masteradmin approval.
+            </p>
 
         </div>
 
@@ -110,25 +136,43 @@ Approval Center
 
                 <div class="flex gap-3">
 
-                    <a
-                        href="{% url 'approve_user' user.id %}"
-                        onclick="return confirm('Approve this admin account?')"
-                        class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                    <form
+                        method="POST"
+                        action="{% url 'approve_user' user.id %}"
+                        onsubmit="return confirm('Approve this admin account?')"
                     >
 
-                        Approve
+                        {% csrf_token %}
 
-                    </a>
+                        <button
+                            type="submit"
+                            class="bg-green-600 hover:bg-green-700 transition px-4 py-2 rounded-xl text-sm font-medium"
+                        >
 
-                    <a
-                        href="{% url 'reject_user' user.id %}"
-                        onclick="return confirm('Reject and permanently delete this admin account?')"
-                        class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                            Approve
+
+                        </button>
+
+                    </form>
+
+                    <form
+                        method="POST"
+                        action="{% url 'reject_user' user.id %}"
+                        onsubmit="return confirm('Reject and permanently delete this admin account?')"
                     >
 
-                        Reject
+                        {% csrf_token %}
 
-                    </a>
+                        <button
+                            type="submit"
+                            class="bg-red-500/10 hover:bg-red-500/20 text-red-400 transition px-4 py-2 rounded-xl text-sm font-medium"
+                        >
+
+                            Reject
+
+                        </button>
+
+                    </form>
 
                 </div>
 

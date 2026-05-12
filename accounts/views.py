@@ -13,6 +13,14 @@ def login_view(request):
 
     if request.user.is_authenticated:
 
+        if not request.user.is_approved:
+            logout(request)
+            messages.error(
+                request,
+                'Your account is pending masteradmin approval.'
+            )
+            return redirect('login')
+
         if request.user.role in [
             'SUPER_ADMIN',
             'ADMIN',
@@ -36,7 +44,7 @@ def login_view(request):
 
                 messages.error(
                     request,
-                    'Your account is pending approval.'
+                    'Your account is pending masteradmin approval.'
                 )
 
                 return redirect('login')
@@ -119,7 +127,7 @@ def admin_register_view(request):
 
             messages.success(
                 request,
-                'Admin registration submitted for approval.'
+                'Admin registration submitted. Wait for masteradmin approval.'
             )
 
             return redirect('login')
